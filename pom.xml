@@ -107,6 +107,14 @@
                 </configuration>
             </plugin>
 
+            <!-- Explicit maven-clean-plugin declaration -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.2</version> <!-- use a newer version -->
+            </plugin>
+
+
             <!-- Maven Dependency Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
