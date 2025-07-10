@@ -19,7 +19,7 @@ pipeline {
                 script {
                     // Use bat for Windows or sh for Unix/Linux
                     if (isUnix()) {
-                        sh "mvn clean test -Dmaven.repo.local=./local-maven-repo -o -Dtest=${ServiceName} -Dips=${IP_Port}"
+                        sh "mvn clean test -Dmaven.repo.local=./local-maven-repo -Dtest=${ServiceName} -Dips=${IP_Port}"
                     } else {
                         bat "mvn clean test -Dmaven.repo.local=./local-maven-repo -o -Dtest=${ServiceName} -Dips=${IP_Port}"
                     }
