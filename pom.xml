@@ -44,6 +44,21 @@
     </repositories>
 
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>local-maven-plugin-repo</id>
+            <url>file://${local.repo.path}</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
 
 
 
