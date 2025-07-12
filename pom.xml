@@ -12,18 +12,18 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <!-- Plugin Versions -->
-        <maven.surefire.version>3.0.0</maven.surefire.version>
-        <maven.compiler.version>3.11.0</maven.compiler.version>
-        <maven.dependency.version>3.6.0</maven.dependency.version>
-
+        <maven.surefire.version>3.5.2</maven.surefire.version>
+        <maven.compiler.version>3.13.0</maven.compiler.version>
+        <maven.resources.version>3.3.1</maven.resources.version>
+        <maven.jar.version>3.4.2</maven.jar.version>
+        <maven.install.version>3.1.3</maven.install.version>
+        <maven.deploy.version>3.1.3</maven.deploy.version>
+        <maven.dependency.version>3.8.0</maven.dependency.version>
+        <maven.help.version>3.2.0</maven.help.version>
         <!-- Local Repository Path -->
         <local.repo.path>${project.basedir}/local-maven-repo</local.repo.path>
-
         <ips>test</ips> <!-- default -->
-
-
     </properties>
 
     <!-- Configure Local Repository -->
@@ -43,7 +43,6 @@
         </repository>
     </repositories>
 
-
     <pluginRepositories>
         <pluginRepository>
             <id>local-maven-plugin-repo</id>
@@ -59,43 +58,33 @@
         </pluginRepository>
     </pluginRepositories>
 
-
-
-
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>5.5.5</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>
             <version>5.5.5</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
             <version>5.5.5</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.11.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>5.1.2</version>
         </dependency>
     </dependencies>
-
 
     <build>
         <pluginManagement>
@@ -105,47 +94,85 @@
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.3.2</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven.resources.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven.jar.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven.install.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven.deploy.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>${maven.help.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.2</version>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.resources.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
                 <configuration>
-                    <!-- Test Configuration -->
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
                     <includes>
                         <include>**/*Test.java</include>
                         <include>**/*Tests.java</include>
                     </includes>
-
-                    <!-- System Properties for Tests -->
                     <systemPropertyVariables>
                         <className>${className}</className>
                         <maven.repo.local>${local.repo.path}</maven.repo.local>
                     </systemPropertyVariables>
-
-                    <!-- Test Output -->
                     <printSummary>true</printSummary>
                     <useFile>false</useFile>
                 </configuration>
             </plugin>
-
-            <!-- Explicit maven-clean-plugin declaration -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.3.2</version> <!-- use a newer version -->
-            </plugin>
-
-
-            <!-- Maven Dependency Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>${maven.dependency.version}</version>
                 <executions>
-                    <!-- Copy Dependencies to lib folder (Optional) -->
                     <execution>
                         <id>copy-dependencies</id>
                         <phase>prepare-package</phase>
@@ -159,7 +186,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <version>${maven.help.version}</version>
+            </plugin>
         </plugins>
     </build>
-
 </project>

@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
 
         stage('Checkout') {
             steps {
@@ -9,10 +14,10 @@ pipeline {
                 script {
                     if (isUnix()) {
                         sh 'cat pom.xml'
-                        sh 'ls -R local-maven-repo/org/apache/maven/plugins/maven-clean-plugin'
+                        sh 'ls -R local-maven-repo/org/apache/maven/plugins || true'
                     } else {
                         bat 'type pom.xml'
-                        bat 'dir local-maven-repo\\org\\apache\\maven\\plugins\\maven-clean-plugin /s'
+                        bat 'dir local-maven-repo\\org\\apache\\maven\\plugins /s || exit 0'
                     }
                 }
             }
