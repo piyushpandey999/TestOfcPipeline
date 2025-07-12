@@ -5,7 +5,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/piyushpandey999/APIAutomation.git'
+                git 'https://github.com/piyushpandey999/TestOfcPipeline.git'
                 script {
                     if (isUnix()) {
                         sh 'cat pom.xml'
