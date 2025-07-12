@@ -1,5 +1,0 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Fri Jul 11 22:40:55 IST 2025
-@default-central-https\://repo.maven.apache.org/maven2/.lastUpdated=1752168460190
-file\://D\:\\Practice-NewJ\\Java-G\\Test-Framework/local-maven-repo/.lastUpdated=1752253855860
-https\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.apache.maven.plugins\:maven-clean-plugin\:pom\:3.3.2 from/to central (https\://repo.maven.apache.org/maven2)\: Connect to repo.maven.apache.org\:443 [repo.maven.apache.org/199.232.20.215] failed\: Connect timed out
