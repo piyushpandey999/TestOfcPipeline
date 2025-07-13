@@ -42,6 +42,17 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
     }
 
     @Override
+
+    public void onStart(ITestContext context) {
+
+        // Log test suite start
+
+        System.out.println("Test Suite Started: " + context.getName());
+
+    }
+
+
+    @Override
     public void onTestStart(ITestResult result) {
         // Create test entry in Extent Report
         ExtentTest test = extent.createTest(result.getMethod().getMethodName());
@@ -62,6 +73,15 @@ public class ExtentReportListener implements ITestListener, ISuiteListener {
     public void onTestSkipped(ITestResult result) {
         logDetails(Status.SKIP, "Test Skipped: " + result.getThrowable());
     }
+
+    @Override
+
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+
+        logDetails(Status.PASS, "Test Passed with Success Percentage: " + result.getMethod().getMethodName());
+
+    }
+
 
     @Override
     public void onFinish(ITestContext context) {
