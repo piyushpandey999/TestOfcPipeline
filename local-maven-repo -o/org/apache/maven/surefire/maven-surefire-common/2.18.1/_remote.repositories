@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Jul 13 11:52:02 IST 2025
+maven-surefire-common-2.18.1.jar>local-maven-plugin-repo=
+maven-surefire-common-2.18.1.pom>central=
