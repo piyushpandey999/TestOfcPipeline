@@ -40,15 +40,14 @@ pipeline {
                 }
             }
         }
-    }
 
-
-      stage('E-Mail Test Results') {
-                steps {
-                        echo "JOB_NAME and BUILD_NUMBER is -  ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}"
-                        echo "To_Email_Address is - ${env.To_Email_Address}"
+        stage('E-Mail Test Results') {
+            steps {
+                echo "JOB_NAME and BUILD_NUMBER is - ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}"
+                echo "To_Email_Address is - ${env.To_Email_Address}"
             }
         }
+    }
 
     post {
         always {
@@ -62,7 +61,7 @@ pipeline {
                     <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
                     <p>Best regards,<br>Jenkins</p>
                 """,
-                to: "${env.To_Email_Address}", // Replace with the recipient's email
+                to: "${env.To_Email_Address}",
                 attachmentsPattern: 'Test-Framework/Reports/index.html',
                 mimeType: 'text/html'
             )
