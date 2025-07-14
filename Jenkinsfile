@@ -41,4 +41,31 @@ pipeline {
             }
         }
     }
+
+
+      stage('E-Mail Test Results') {
+                steps {
+                        echo "JOB_NAME and BUILD_NUMBER is -  ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}"
+                        echo "To_Email_Address is - ${env.To_Email_Address}"
+            }
+        }
+
+    post {
+        always {
+            emailext (
+                subject: "Test Results for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+                body: """
+                    <p>Dear Team,</p>
+                    <p>Please find the test results for the job <b>${env.JOB_NAME}</b>, Build #${env.BUILD_NUMBER}.</p>
+                    <p>Status: ${currentBuild.currentResult}</p>
+                    <p>Check the attached report for details.</p>
+                    <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                    <p>Best regards,<br>Jenkins</p>
+                """,
+                to: "${env.To_Email_Address}", // Replace with the recipient's email
+                attachmentsPattern: 'Test-Framework/Reports/index.html',
+                mimeType: 'text/html'
+            )
+        }
+    }
 }
