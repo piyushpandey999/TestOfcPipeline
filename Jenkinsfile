@@ -33,9 +33,11 @@ pipeline {
                     if (isUnix()) {
                         sh 'mvn help:evaluate -Dexpression=settings.localRepository -Dmaven.repo.local=./local-maven-repo -o'
                         sh "mvn clean test -Dmaven.repo.local=./local-maven-repo -o -Dtest=${params.ServiceName} -Dips=${params.IP_Port} -X"
+                        sh 'ls -l Test-Framework/Reports/index.html || echo "Test report not found!"'
                     } else {
                         bat 'mvn help:evaluate -Dexpression=settings.localRepository -Dmaven.repo.local=.\\local-maven-repo -o'
                         bat "mvn clean test -Dmaven.repo.local=.\\local-maven-repo -o -Dtest=${params.ServiceName} -Dips=${params.IP_Port} -X"
+                        bat 'dir Test-Framework\\Reports\\index.html || echo "Test report not found!"'
                     }
                 }
             }
@@ -51,20 +53,27 @@ pipeline {
 
     post {
         always {
-            emailext (
-                subject: "Test Results for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
-                body: """
-                    <p>Dear Team,</p>
-                    <p>Please find the test results for the job <b>${env.JOB_NAME}</b>, Build #${env.BUILD_NUMBER}.</p>
-                    <p>Status: ${currentBuild.currentResult}</p>
-                    <p>Check the attached report for details.</p>
-                    <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                    <p>Best regards,<br>Jenkins</p>
-                """,
-                to: "${env.To_Email_Address}",
-                attachmentsPattern: 'Test-Framework/Reports/index.html',
-                mimeType: 'text/html'
-            )
+            script {
+                def reportPath = isUnix() ? 'Test-Framework/Reports/index.html' : 'Test-Framework\\Reports\\index.html'
+                def fileExists = fileExists(reportPath)
+                if (!fileExists) {
+                    error "Test report not found at ${reportPath}. Cannot send email with attachment."
+                }
+                emailext (
+                    subject: "Test Results for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+                    body: """
+                        <p>Dear Team,</p>
+                        <p>Please find the test results for the job <b>${env.JOB_NAME}</b>, Build #${env.BUILD_NUMBER}.</p>
+                        <p>Status: ${currentBuild.currentResult}</p>
+                        <p>Check the attached report for details.</p>
+                        <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                        <p>Best regards,<br>Jenkins</p>
+                    """,
+                    to: "${env.To_Email_Address}",
+                    attachmentsPattern: reportPath,
+                    mimeType: 'text/html'
+                )
+            }
         }
     }
 }
