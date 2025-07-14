@@ -31,5 +31,7 @@ public class ReportCustomerProblem_V5_2 extends BaseSetup {
 
         validateApiResponse2(ActualResponseCode,expectedResponseCode,actualHTTPCode,expectedHTTPCode,ip);
 
+        res.prettyPeek();
+
     }
 }
