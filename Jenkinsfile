@@ -33,11 +33,11 @@ pipeline {
                     if (isUnix()) {
                         sh 'mvn help:evaluate -Dexpression=settings.localRepository -Dmaven.repo.local=./local-maven-repo -o'
                         sh "mvn clean test -Dmaven.repo.local=./local-maven-repo -o -Dtest=${params.ServiceName} -Dips=${params.IP_Port} -X"
-                        sh 'ls -l Test-Framework/Reports/index.html || echo "Test report not found!"'
+                        sh 'ls -l /home/esb_user/.jenkins/workspace/Test_Automation_Pipeline/Reports/TestReport.html || echo "Test report not found!"'
                     } else {
                         bat 'mvn help:evaluate -Dexpression=settings.localRepository -Dmaven.repo.local=.\\local-maven-repo -o'
                         bat "mvn clean test -Dmaven.repo.local=.\\local-maven-repo -o -Dtest=${params.ServiceName} -Dips=${params.IP_Port} -X"
-                        bat 'dir Test-Framework\\Reports\\index.html || echo "Test report not found!"'
+                        bat 'dir /home/esb_user/.jenkins/workspace/Test_Automation_Pipeline/Reports/TestReport.html || echo "Test report not found!"'
                     }
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
     post {
         always {
             script {
-                def reportPath = isUnix() ? '/Reports/TestReport.html' : 'Reports\\TestReport.html'
+                def reportPath = isUnix() ? '/home/esb_user/.jenkins/workspace/Test_Automation_Pipeline/Reports/TestReport.html' : 'Reports\\TestReport.html'
                 def fileExists = fileExists(reportPath)
                 if (!fileExists) {
                     error "Test report not found at ${reportPath}. Cannot send email with attachment."
