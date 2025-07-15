@@ -54,7 +54,7 @@ pipeline {
     post {
         always {
             script {
-                def reportPath = isUnix() ? 'Test-Framework/Reports/TestResults.html' : 'Reports\\TestReport.html'
+                def reportPath = isUnix() ? '/Reports/TestReport.html' : 'Reports\\TestReport.html'
                 def fileExists = fileExists(reportPath)
                 if (!fileExists) {
                     error "Test report not found at ${reportPath}. Cannot send email with attachment."
