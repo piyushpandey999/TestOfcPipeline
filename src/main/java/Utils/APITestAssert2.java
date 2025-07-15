@@ -29,24 +29,24 @@ public class APITestAssert2 {
                         "<tr><td><b>Status</b></td><td colspan='2'><b>" + statusText + "</b></td></tr>" +
                         "</table>";
 
-        ExtentReportListener.getTest().info(MarkupHelper.createLabel("API Validation Summary", ExtentColor.BLUE));
-        ExtentReportListener.getTest().info(summaryTable);
+        ExtentReportListener2.getTest().info(MarkupHelper.createLabel("API Validation Summary", ExtentColor.BLUE));
+        ExtentReportListener2.getTest().info(summaryTable);
 
 
 
-        ExtentReportListener.getTest().info("IP - "+ip);
+        ExtentReportListener2.getTest().info("IP - "+ip);
 
         // Individual assertions
         if (!apiCodeMatch) {
-            ExtentReportListener.getTest().fail("Mismatch in API Code: Expected [" + expectedApiCode + "], but got [" + actualApiCode + "]");
+            ExtentReportListener2.getTest().fail("Mismatch in API Code: Expected [" + expectedApiCode + "], but got [" + actualApiCode + "]");
         } else {
-            ExtentReportListener.getTest().pass("API Code matched: " + actualApiCode);
+            ExtentReportListener2.getTest().pass("API Code matched: " + actualApiCode);
         }
 
         if (!httpCodeMatch) {
-            ExtentReportListener.getTest().fail("Mismatch in HTTP Status Code: Expected [" + expectedHttpCode + "], but got [" + actualHttpCode + "]");
+            ExtentReportListener2.getTest().fail("Mismatch in HTTP Status Code: Expected [" + expectedHttpCode + "], but got [" + actualHttpCode + "]");
         } else {
-            ExtentReportListener.getTest().pass("HTTP Code matched: " + actualHttpCode);
+            ExtentReportListener2.getTest().pass("HTTP Code matched: " + actualHttpCode);
         }
 
         // Fail test if any mismatch
