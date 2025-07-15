@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+      environment {
+              REPORT_PATH = 'Reports/TestReport.html' // Use the correct file name
+          }
     stages {
         stage('Clean Workspace') {
             steps {
@@ -47,6 +49,13 @@ pipeline {
             steps {
                 echo "JOB_NAME and BUILD_NUMBER is - ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}"
                 echo "To_Email_Address is - ${env.To_Email_Address}"
+
+                script {
+                                    if (fileExists(env.REPORT_PATH)) {
+                                        echo "Test report found at ${env.REPORT_PATH}"
+                                    } else {
+                                        error "Test report not found at ${env.REPORT_PATH}. Cannot proceed."
+                                    }
             }
         }
     }
@@ -70,7 +79,7 @@ pipeline {
                         <p>Best regards,<br>Jenkins</p>
                     """,
                     to: "${env.To_Email_Address}",
-                    attachmentsPattern: reportPath,
+                    attachmentsPattern: "${env.REPORT_PATH}" // Use GLOB pattern,
                     mimeType: 'text/html'
                 )
             }
