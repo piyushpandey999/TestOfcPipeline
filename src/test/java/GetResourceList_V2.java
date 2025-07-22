@@ -50,12 +50,11 @@ public class GetResourceList_V2 extends BaseSetup {
                 "}";
 
         RestAssured.baseURI = "http://" + ip;
-        RestAssured.basePath = "/services/customerproblem/report/v5_2";
+        RestAssured.basePath = "/services/resource/resourceprovisioning/determineserviceavailability/inventory/search/v2";
 
         Response res = RestAssured.given().log().all().when().body(body).post().then().extract().response();
         String ActualResponseCode = res.jsonPath().getString("Fault.detail.getResourceListFault.soaFault.soaFaultCode");
         String expectedResponseCode = "GetResourceList-3999-E";
-
         int actualHTTPCode = res.getStatusCode();
         int expectedHTTPCode = 200;
 
