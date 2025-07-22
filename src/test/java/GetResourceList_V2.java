@@ -54,7 +54,7 @@ public class GetResourceList_V2 extends BaseSetup {
 
         Response res = RestAssured.given().log().all().when().body(body).post().then().extract().response();
         String ActualResponseCode = res.jsonPath().getString("soaFault.soaFaultCode");
-        String expectedResponseCode = "reportCustomerProblem-3599-E";
+        String expectedResponseCode = "GetResourceList-3999-E";
 
         int actualHTTPCode = res.getStatusCode();
         int expectedHTTPCode = 200;
